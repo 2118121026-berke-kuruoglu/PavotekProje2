@@ -1,0 +1,107 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|c:\\users\\berko\\onedrive\\masa\u00FCst\u00FC\\git\\maptiledownloader\\maptiledownloader\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|solutionrelative:maptiledownloader\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\maptiledownloader\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|solutionrelative:maptiledownloader\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|c:\\users\\berko\\onedrive\\masa\u00FCst\u00FC\\git\\maptiledownloader\\maptiledownloader\\progressnotifierclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|solutionrelative:maptiledownloader\\progressnotifierclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|c:\\users\\berko\\onedrive\\masa\u00FCst\u00FC\\git\\maptiledownloader\\maptiledownloader\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBACDD00-EA96-4D74-A10C-127457303EEB}|MapTileDownloader\\MapTileDownloader.csproj|solutionrelative:maptiledownloader\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 371,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\Form1.cs",
+              "RelativeDocumentMoniker": "MapTileDownloader\\Form1.cs",
+              "ToolTip": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\Form1.cs",
+              "RelativeToolTip": "MapTileDownloader\\Form1.cs",
+              "ViewState": "AgIAAAgBAAAAAAAAAAAkwFwBAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T09:16:32.995Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProgressNotifierClient.cs",
+              "DocumentMoniker": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\ProgressNotifierClient.cs",
+              "RelativeDocumentMoniker": "MapTileDownloader\\ProgressNotifierClient.cs",
+              "ToolTip": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\ProgressNotifierClient.cs",
+              "RelativeToolTip": "MapTileDownloader\\ProgressNotifierClient.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAgwCMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-01T07:21:42.247Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Tasar\u0131m]",
+              "DocumentMoniker": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\Form1.cs",
+              "RelativeDocumentMoniker": "MapTileDownloader\\Form1.cs",
+              "ToolTip": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\Form1.cs [Tasar\u0131m]",
+              "RelativeToolTip": "MapTileDownloader\\Form1.cs [Tasar\u0131m]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T11:47:59.019Z",
+              "EditorCaption": " [Tasar\u0131m]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "MapTileDownloader\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\berko\\OneDrive\\Masa\u00FCst\u00FC\\git\\MapTileDownloader\\MapTileDownloader\\Form1.Designer.cs",
+              "RelativeToolTip": "MapTileDownloader\\Form1.Designer.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAowF8AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T09:16:42.863Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

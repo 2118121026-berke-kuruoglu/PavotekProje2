@@ -1,0 +1,40 @@
+﻿@using BlazorDashboard.Services;
+@using BlazorDashboard.Shared;
+
+@page "/register"
+@inject Services.AuthService AuthService
+@inject NavigationManager Navigation
+
+<h3>Kayıt Ol</h3>
+
+<div class="mb-3">
+    <label>Kullanıcı Adı:</label>
+    <input @bind="username" class="form-control" />
+</div>
+<div class="mb-3">
+    <label>Şifre:</label>
+    <input type="password" @bind="password" class="form-control" />
+</div>
+<button class="btn btn-primary" @onclick="RegisterUser">Kayıt Ol</button>
+
+@if (!string.IsNullOrEmpty(statusMessage))
+{
+    <div class="mt-2 alert alert-info">@statusMessage</div>
+}
+
+@code {
+    private string username;
+    private string password;
+    private string statusMessage;
+
+    private async Task RegisterUser()
+    {
+        bool result = await AuthService.RegisterAsync(username, password);
+        statusMessage = result ? "Kayıt başarılı!" : "Kayıt başarısız.";
+        if (result)
+        {
+            Navigation.NavigateTo("/login");
+        }
+    
+    }
+}

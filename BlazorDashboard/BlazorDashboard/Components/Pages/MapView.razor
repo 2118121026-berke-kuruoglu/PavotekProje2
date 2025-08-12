@@ -1,0 +1,42 @@
+﻿@using BlazorDashboard.Models;
+@using BlazorDashboard.Shared;
+
+@page "/mapviewer/{mapId:int}"
+@inject HttpClient Http
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+@inject UserSession UserSession
+
+<h3>Map Viewer</h3>
+<div id="map" style="height:600px;"></div>
+
+@code {
+    [Parameter] public int mapId { get; set; }
+
+    private MapData? mapData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!UserSession.IsLoggedIn)
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        mapData = await Http.GetFromJsonAsync<MapData>($"api/maps/{mapId}");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && mapData is not null)
+        {
+            var centerLat = (mapData.LatMin + mapData.LatMax) / 2;
+            var centerLon = (mapData.LonMin + mapData.LonMax) / 2;
+
+
+            string tileUrl = $"http://localhost:5145/api/maps/{mapId}/tile/{{z}}/{{x}}/{{y}}?X-API-KEY=super-secret-api-key-12345";
+
+            await JS.InvokeVoidAsync("initLeafletMap", "map", tileUrl, mapData.ZoomMin, mapData.ZoomMax, centerLat, centerLon);
+        }
+    }
+}

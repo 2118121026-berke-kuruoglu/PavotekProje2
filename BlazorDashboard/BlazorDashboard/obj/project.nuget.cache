@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "D8uDfuqLSdU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\berko\\OneDrive\\Masaüstü\\git\\BlazorDashboard\\BlazorDashboard\\BlazorDashboard.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\berko\\.nuget\\packages\\microsoft.data.sqlite.core\\9.0.8\\microsoft.data.sqlite.core.9.0.8.nupkg.sha512",
+    "C:\\Users\\berko\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\3.0.0\\sqlitepclraw.bundle_e_sqlite3.3.0.0.nupkg.sha512",
+    "C:\\Users\\berko\\.nuget\\packages\\sqlitepclraw.config.e_sqlite3\\3.0.0\\sqlitepclraw.config.e_sqlite3.3.0.0.nupkg.sha512",
+    "C:\\Users\\berko\\.nuget\\packages\\sqlitepclraw.core\\3.0.0\\sqlitepclraw.core.3.0.0.nupkg.sha512",
+    "C:\\Users\\berko\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\3.50.3\\sqlitepclraw.lib.e_sqlite3.3.50.3.nupkg.sha512",
+    "C:\\Users\\berko\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\3.0.0\\sqlitepclraw.provider.e_sqlite3.3.0.0.nupkg.sha512",
+    "C:\\Users\\berko\\.nuget\\packages\\system.memory\\4.6.3\\system.memory.4.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}

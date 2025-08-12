@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTileDownloader", "MapTileDownloader\MapTileDownloader.csproj", "{CBACDD00-EA96-4D74-A10C-127457303EEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBACDD00-EA96-4D74-A10C-127457303EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBACDD00-EA96-4D74-A10C-127457303EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBACDD00-EA96-4D74-A10C-127457303EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBACDD00-EA96-4D74-A10C-127457303EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CEE4997-EA13-4C1D-915D-BB2D54D95BEF}
+	EndGlobalSection
+EndGlobal

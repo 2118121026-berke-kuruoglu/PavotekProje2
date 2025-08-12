@@ -1,0 +1,41 @@
+﻿@using BlazorDashboard.Services;
+@using BlazorDashboard.Shared;
+
+@page "/login"
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+@inject UserSession UserSession
+
+<h3>Giriş Yap</h3>
+
+<div class="mb-3">
+    <label>Kullanıcı Adı:</label>
+    <input @bind="username" class="form-control" />
+</div>
+<div class="mb-3">
+    <label>Şifre:</label>
+    <input type="password" @bind="password" class="form-control" />
+</div>
+<button class="btn btn-success" @onclick="LoginUser">Giriş Yap</button>
+
+@if (!string.IsNullOrEmpty(statusMessage))
+{
+    <div class="mt-2 alert alert-danger">@statusMessage</div>
+}
+
+@code {
+    private string username;
+    private string password;
+    private string statusMessage;
+
+    private async Task LoginUser()
+    {
+        bool result = await AuthService.LoginAsync(username, password);
+        statusMessage = result ? "Giriş başarılı!" : "Giriş başarısız. Kullanıcı adı ya da şifre yanlış.";
+        if (result)
+        {
+            await UserSession.SetUserAsync(username);
+            Navigation.NavigateTo("/maps");
+        }
+    }
+}

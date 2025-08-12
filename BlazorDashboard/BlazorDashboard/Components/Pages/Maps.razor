@@ -1,0 +1,313 @@
+﻿@using BlazorDashboard.Services
+@using BlazorDashboard.Shared
+@using BlazorDashboard.Models
+@using System.Net.WebSockets
+@using System.Text
+@using System.Text.Json
+
+@page "/maps"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject UserSession UserSession
+@inject AuthService AuthService
+
+@implements IDisposable
+
+<h4>İndirme İlerlemesi</h4>
+@if (isConnected)
+{
+    <p>Harita: @currentMapName</p>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar"
+             style="width:@($"{Math.Round(progress)}%")"
+             aria-valuenow="@progress" aria-valuemin="0" aria-valuemax="100">
+            @($"{Math.Round(progress)}%")
+        </div>
+    </div>
+}
+else
+{
+    <p>İlerleme bilgisi bağlantısı kuruluyor...</p>
+}
+
+<h3>Haritalar Listesi</h3>
+
+@if (!_initialized)
+{
+    <p>Kontrol ediliyor...</p>
+}
+else if (!UserSession.IsLoggedIn)
+{
+    <p>Giriş yapılmadı, yönlendiriliyorsunuz...</p>
+}
+else
+{
+    @if (maps == null)
+    {
+        <p><em>Yükleniyor...</em></p>
+    }
+    else if (maps.Count == 0)
+    {
+        <p>Henüz kayıtlı harita yok.</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>İsim</th>
+                    <th>Zoom Aralığı</th>
+                    <th>Koordinatlar</th>
+                    <th>Klasör</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var map in maps)
+                {
+                    <tr>
+                        <td>
+                            @if (editMapId == map.Id)
+                            {
+                                <input @bind="editMapName" class="form-control form-control-sm" />
+                            }
+                            else
+                            {
+                                @map.MapName
+                            }
+                        </td>
+                        <td>@map.ZoomMin - @map.ZoomMax</td>
+                        <td>@map.LatMin, @map.LatMax, @map.LonMin, @map.LonMax</td>
+                        <td>@map.FolderPath</td>
+                        <td>@map.CreatedAt</td>
+                        <td>
+                            @if (editMapId == map.Id)
+                            {
+                                <button class="btn btn-success btn-sm me-1" @onclick="() => SaveMapName(map.Id)">Kaydet</button>
+                                <button class="btn btn-secondary btn-sm" @onclick="CancelEdit">İptal</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-primary btn-sm me-1" @onclick="() => StartEdit(map.Id, map.MapName)">İsmi Değiştir</button>
+                                <button class="btn btn-danger btn-sm me-1" @onclick="() => DeleteMap(map.Id)">Sil</button>
+                                <button class="btn btn-primary"
+                                        @onclick="@(() => Navigation.NavigateTo($"/mapviewer/{map.Id}"))">
+                                    Haritayı Göster
+                                </button>
+                                        }
+                        </td>
+                    </tr>
+                    @if (visibleMapId == map.Id)
+                    {
+                        <tr>
+                            <td colspan="6">
+                                <div id="map-container-@map.Id" style="height: 500px;" class="border rounded mb-3"></div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+
+}
+
+@code {
+    private List<MapData> maps;
+    private ClientWebSocket _webSocket;
+    private bool isConnected = false;
+    private string currentMapName = "";
+    private double progress = 0;
+
+    // Edit
+    private int editMapId = -1;
+    private string editMapName = "";
+
+    // Map display
+    private int visibleMapId = -1;
+
+    protected override Task OnInitializedAsync()
+    {
+        return Task.CompletedTask; // boş bırak
+    }
+
+    private bool _initialized = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await UserSession.InitializeAsync();
+
+            if (!UserSession.IsLoggedIn)
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            await LoadMaps();
+            await ConnectWebSocket();
+
+            _initialized = true;
+
+            StateHasChanged();
+        }
+    }
+
+    private void UserSessionChanged()
+    {
+        if (!UserSession.IsLoggedIn)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            InvokeAsync(async () =>
+            {
+                await LoadMaps();
+                StateHasChanged();
+            });
+        }
+    }
+    public void Dispose()
+    {
+        UserSession.OnChange -= UserSessionChanged;
+    }
+
+
+    private async Task LoadMaps()
+    {
+        try
+        {
+            maps = await Http.GetFromJsonAsync<List<MapData>>("/maps");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Haritalar yüklenirken hata: {ex.Message}");
+            maps = new List<MapData>();
+        }
+    }
+
+    private async Task DeleteMap(int id)
+    {
+        var response = await Http.DeleteAsync($"/maps/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            await Task.Delay(2000);
+            await LoadMaps();
+        }
+    }
+
+    private void StartEdit(int id, string currentName)
+    {
+        editMapId = id;
+        editMapName = currentName;
+    }
+
+    private void CancelEdit()
+    {
+        editMapId = -1;
+        editMapName = "";
+    }
+
+    private async Task SaveMapName(int id)
+    {
+        if (string.IsNullOrWhiteSpace(editMapName)) return;
+
+        bool success = await AuthService.RenameMapAsync(id, editMapName);
+        if (success)
+        {
+            await LoadMaps();
+            CancelEdit();
+        }
+    }
+
+    private async Task ConnectWebSocket()
+    {
+        _webSocket = new ClientWebSocket();
+        var wsUri = new Uri("ws://localhost:5000/ws/");
+        try
+        {
+            await _webSocket.ConnectAsync(wsUri, CancellationToken.None);
+            isConnected = true;
+            _ = ReceiveProgressMessages();
+        }
+        catch
+        {
+            isConnected = false;
+        }
+    }
+
+    private async Task ReceiveProgressMessages()
+    {
+        var buffer = new byte[1024];
+        while (_webSocket.State == WebSocketState.Open)
+        {
+            try
+            {
+                var result = await _webSocket.ReceiveAsync(buffer, CancellationToken.None);
+                if (result.MessageType == WebSocketMessageType.Close)
+                {
+                    await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Bağlantı kapatıldı", CancellationToken.None);
+                    isConnected = false;
+                    await InvokeAsync(StateHasChanged);
+                }
+                else if (result.MessageType == WebSocketMessageType.Text)
+                {
+                    var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                    await ProcessProgressMessageAsync(message);
+                }
+            }
+            catch
+            {
+                isConnected = false;
+                break;
+            }
+        }
+    }
+
+    private async Task ProcessProgressMessageAsync(string message)
+    {
+        try
+        {
+            var data = JsonSerializer.Deserialize<ProgressMessage>(message, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (data != null)
+            {
+                currentMapName = data.Map;
+                progress = Math.Min(100, Math.Max(0, data.Progress));
+
+                await InvokeAsync(StateHasChanged);
+
+                if (progress >= 99.9)
+                {
+                    await Task.Delay(1500);
+                    await LoadMaps();
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+        catch { }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_webSocket != null)
+        {
+            try
+            {
+                await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Sayfa kapandı", CancellationToken.None);
+            }
+            catch { }
+
+            _webSocket.Dispose();
+        }
+    }
+
+    [Inject] private IJSRuntime JS { get; set; }
+}
